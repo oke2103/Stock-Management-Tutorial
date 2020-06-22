@@ -3,22 +3,22 @@ import './App.css';
 // import { render } from '@testing-library/react';
 import Customer from './components/Customer';
 
-const customer = {
-  'name'      : '사람',
+const customers = [{
+  'id'        : 1,
+  'name'      : '권정환',
   'birthday'  : '930429',
   'gender'    : '남자',
   'job'       : '대학생'
-}
+}]
 
 class App extends Component {
   render() {
     return (
-      <Customer
-        name={customer.name}
-        birthday={customer.birthday}
-        gender={customer.gender}
-        job={customer.job}
-      />
+      customers.map(c => {
+        return (
+          <Customer key={c.id} id={c.id} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/>
+        );
+      })
     )
   }
 }
