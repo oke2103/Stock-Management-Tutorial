@@ -21,17 +21,27 @@ const styles = theme => ({
   }
 })
 
-const customers = [{
-  'id'        : 1,
-  'name'      : '권정환',
-  'birthday'  : '930429',
-  'gender'    : '남자',
-  'job'       : '대학생'
-}]
-
 class App extends Component {
+
+  state = {
+    customers : ""
+  }
+
+  // 컴포넌트가 마운트 된 직후
+  componentDidMount(){
+    this.callApi()
+      .then(res => this.setState({customers : res}))
+      .catch(err => console.log(err))
+  }
+
+  // async await : 비동기 구현
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
-    debugger;
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
@@ -47,7 +57,9 @@ class App extends Component {
             <TableCell>직업</TableCell>
           </TableHead>
           <TableBody>
-            { customers.map(c => { return ( <Customer key={c.id} id={c.id} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/> ); }) }
+            { this.state.customers ? this.state.customers.map(c => {
+               return ( <Customer key={c.id} id={c.id} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/> ); 
+            }) : ""}
           </TableBody>
         </Table>
       </Paper>
