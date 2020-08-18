@@ -5,17 +5,13 @@ const bodyParser = require('body-parser');
 const app  = express();
 const port = process.env.PORT || 5000;
 
-const oracledb = require('oracledb');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended : true}));
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended : true}));
-
-app.get('/api/hello',(req, res) => {
-    res.send({message : 'Hello Express!'});
-});
 
 app.get('/api/customers',(req,res) => {
-    //test;
+    console.log("test");
+    res.send({message : "Hello"});
 });
 
 app.listen(port, () => console.log(`Listing on port ${port}`));
